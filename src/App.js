@@ -5,7 +5,7 @@ import {FooterNavigation} from './components/FooterNavigation';
 import {HomeScreen} from './screens/HomeScreen';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {CameraScreen} from './screens/CameraScreen';
+import {ExampleApp} from './screens/CameraScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +15,7 @@ const App = () => {
       <StatusBar barStyle={'light-content'} />
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
-        {/* <Stack.Screen name="Camera" component={CameraScreen} /> */}
+        <Stack.Screen name="Camera" component={ExampleApp} />
       </Stack.Navigator>
     </NavigationContainer>
   );
