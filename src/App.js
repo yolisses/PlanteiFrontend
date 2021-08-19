@@ -1,7 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
-import {FooterNavigation} from './components/FooterNavigation';
+import {StatusBar} from 'react-native';
 import {HomeScreen} from './screens/HomeScreen';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -12,10 +11,14 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <StatusBar barStyle={'light-content'} />
-      <Stack.Navigator>
+      <StatusBar barStyle={'default'} hidden={true} />
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen
+          name="Camera"
+          component={ExampleApp}
+          options={{header: false}}
+        />
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Camera" component={ExampleApp} />
       </Stack.Navigator>
     </NavigationContainer>
   );

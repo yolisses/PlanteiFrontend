@@ -1,47 +1,60 @@
-import React, {PureComponent} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {faArrowLeft, faUndoAlt} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {useNavigation} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RNCamera} from 'react-native-camera';
+import {CameraSnapButton} from '../components/CameraSnapButton';
+
+const optionButtonSize = 25;
 
 export function ExampleApp() {
+  const {navigate} = useNavigation();
+  const [type, setType] = useState(RNCamera.Constants.Type.front);
+
+  const turnCameraDirection = () => {
+    setType(
+      type === RNCamera.Constants.Type.back
+        ? RNCamera.Constants.Type.front
+        : RNCamera.Constants.Type.back,
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <RNCamera
-        ref={ref => {
-          this.camera = ref;
-        }}
-        style={styles.preview}
-        type={RNCamera.Constants.Type.back}
-        // flashMode={RNCamera.Constants.FlashMode.on}
-        // androidCameraPermissionOptions={{
-        //   title: 'Permission to use camera',
-        //   message: 'We need your permission to use your camera',
-        //   buttonPositive: 'Ok',
-        //   buttonNegative: 'Cancel',
-        // androidRecordAudioPermissionOptions={{
-        //   title: 'Permission to use audio recording',
-        //   message: 'We need your permission to use your audio',
-        //   buttonPositive: 'Ok',
-        //   buttonNegative: 'Cancel',
-        // }}
-      />
-      {/* <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
-        <TouchableOpacity
-          onPress={this.takePicture.bind(this)}
-          style={styles.capture}>
-          <Text style={{fontSize: 14}}> SNAP </Text>
-        </TouchableOpacity>
-      </View> */}
+      <RNCamera style={styles.preview} type={type} />
+
+      <View style={styles.topLayer}>
+        <View style={styles.optionsWrapper}>
+          <TouchableOpacity
+            onPress={() => navigate('Home')}
+            style={styles.option}>
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              color="white"
+              size={optionButtonSize}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.focus} />
+        <CameraSnapButton />
+
+        <View style={[styles.optionsWrapper, {flexDirection: 'row-reverse'}]}>
+          <TouchableOpacity onPress={turnCameraDirection} style={styles.option}>
+            <FontAwesomeIcon
+              icon={faUndoAlt}
+              color="white"
+              size={optionButtonSize}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
-
-  //   takePicture = async () => {
-  //     if (this.camera) {
-  //       const options = {quality: 0.5, base64: true};
-  //       const data = await this.camera.takePictureAsync(options);
-  //       console.log(data.uri);
-  //     }
-  //   };
 }
+
+const optionButtonPadding = 10;
 
 const styles = StyleSheet.create({
   container: {
@@ -54,13 +67,29 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20,
+  focus: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    width: '100%',
+    aspectRatio: 1,
+    backgroundColor: '#0000',
+    borderStyle: 'solid',
+    borderWidth: 3,
+    borderColor: '#fff5',
+  },
+  topLayer: {
+    height: '100%',
+    position: 'absolute',
+  },
+  optionsWrapper: {
+    width: '100%',
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#0005',
+    alignItems: 'center',
+  },
+  option: {
+    marginHorizontal: optionButtonSize,
+    padding: optionButtonPadding,
   },
 });

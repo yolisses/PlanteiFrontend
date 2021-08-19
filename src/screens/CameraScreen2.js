@@ -113,14 +113,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  bottomWrapper: {
-    paddingHorizontal: 40,
-    alignSelf: 'flex-end',
-    flexDirection: 'row-reverse',
-    width: '100%',
-    flex: 1,
-    alignItems: 'center',
-  },
   rotateButton: {
     alignSelf: 'flex-end',
   },

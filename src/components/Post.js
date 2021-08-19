@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   image: {
     width,
     height: width,
-    backgroundColor: 'red',
+    backgroundColor: '#444',
   },
   title: {
     padding: 5,
