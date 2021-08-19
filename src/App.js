@@ -1,13 +1,23 @@
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
+import {FooterNavigation} from './components/FooterNavigation';
 import {HomeScreen} from './screens/HomeScreen';
+
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {CameraScreen} from './screens/CameraScreen';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <SafeAreaView>
+    <NavigationContainer>
       <StatusBar barStyle={'light-content'} />
-      <HomeScreen />
-    </SafeAreaView>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        {/* <Stack.Screen name="Camera" component={CameraScreen} /> */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
